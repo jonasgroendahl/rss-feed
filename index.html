@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let index = 0;
+        axios.get("http://localhost:3000/rss-feed").then(res => {
+            rssFeed(res.data);
+            setInterval(() => {
+                index++;
+                rssFeed(res.data);
+            }, 10000);
+        });
+
+        function rssFeed(data) {
+            const item = data[index];
+            const wrapper = document.querySelector(".flex");
+            wrapper.style.opacity = 0;
+            const h1 = document.querySelector("h1");
+            const img = document.querySelector("img");
+            const body = document.querySelector(".body");
+            const p = document.querySelector(".date");
+            h1.innerHTML = item.title;
+            img.src = item.img;
+            body.innerHTML = item.description;
+            p.innerHTML = item.date;
+            console.log(index);
+            if (index === data.length) {
+                index = 0;
+            }
+            setTimeout(() => wrapper.style.opacity = 1, 1000);
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="flex">
+        <h1></h1>
+        <img width=300 />
+        <div class="body"></div>
+        <p class="date"></p>
+    </div>
+    <style>
+        .flex {
+            display: flex;
+            min-height: 90vh;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-flow: column wrap;
+            transition: all 0.3s ease-in;
+            opacity: 0;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</body>
+
+</html>
