@@ -7,8 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
+    <script src="node_modules/xml2js/lib/xml2js.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
+        console.log(window);
         let index = 0;
         axios.get("http://localhost:3000/rss-feed-dr").then(res => {
             rssFeed(res.data);
@@ -50,34 +53,7 @@
 </head>
 
 <body>
-    <div class="flex">
-        <h1></h1>
-        <img width=300 />
-        <div class="body"></div>
-        <p class="date"></p>
-        <p class="author"></p>
-    </div>
-    <style>
-        .flex {
-            display: flex;
-            min-height: 90vh;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            flex-flow: column wrap;
-            transition: all 1s ease-in;
-            opacity: 0;
-        }
 
-        @keyframes fade {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
 </body>
 
 </html>
